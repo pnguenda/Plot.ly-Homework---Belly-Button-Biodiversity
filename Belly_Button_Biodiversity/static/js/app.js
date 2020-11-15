@@ -1,7 +1,7 @@
 function init() {
     var selector = d3.select("#selDataset");
   
-    d3.json("samples.json").then((data) => {
+    d3.json("static/data/samples.json").then((data) => {
       var sampleNames = data.names;
       console.log(sampleNames);
       sampleNames.forEach((sample) => {
@@ -27,9 +27,9 @@ function optionChanged(sample) {
     getPlots(sample);
     getInfo(sample);
 }
-function getPlots(id) {
+function getPlots(id) { 
     //use D3 library to read the samples JSON file 
-    d3.json("samples.json").then((data) => {
+    d3.json("static/data/samples.json").then((data) => {
         console.log(data.samples);
         // filter sample data by id
         var sampleData = data.samples.filter(s => s.id == id)[0];
@@ -85,13 +85,15 @@ function getPlots(id) {
                 color: otu_ids
             }
         };
+        
         // Create the data variable for the bubble plot
         var data1 = [bubbleTrace];
         // Create layout variable for the bubble plot
         var bubbleLayout = {
             xaxis: {title: 'OTU ID'},
             showlegend: false,
-            margin: {t: 20, l: 100}
+            margin: {t: 20, l: 100}, 
+  
         };
         // Create the bubble plot
         Plotly.newPlot('bubble', data1, bubbleLayout);
@@ -100,7 +102,7 @@ function getPlots(id) {
 // Create the function to get the necessary data
 function getInfo(id) {
     // Read the JSON file to get data
-    d3.json("samples.json").then((samplesData) => {
+    d3.json("static/data/samples.json").then((samplesData) => {
         // Get the data info for the demographic 
         var metadata = samplesData.metadata;
         console.log(metadata)
